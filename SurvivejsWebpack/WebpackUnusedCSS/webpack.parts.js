@@ -22,14 +22,14 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
   },
 });
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 exports.extractCSS = ({ include, exclude, use }) => {
   // Output extracted CSS to a file
-  const plugin = new ExtractTextPlugin({
+  const plugin = new MiniCssExtractPlugin({
     // `allChunks` is needed to extract from extracted chunks as well.
     allChunks: true,
-    filename: "styles/main.css",
+    filename: "styles/[name].css",
   });
 
   return {
@@ -40,10 +40,9 @@ exports.extractCSS = ({ include, exclude, use }) => {
           include,
           exclude,
 
-          use: plugin.extract({
-            use,
-            fallback: "style-loader",
-          }),
+          use: [
+            MiniCssExtractPlugin.loader,
+          ].concat(use),
         },
       ],
     },
