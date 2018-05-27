@@ -7,7 +7,7 @@ const commonConfig = merge([
   {
     plugins: [
       new HtmlWebpackPlugin({
-        title: "Webpack-Loading Styles demo",
+        title: "Webpack-Separating CSS demo",
       }),
     ],
   },
